@@ -1,4 +1,5 @@
 package battleship;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -8,14 +9,15 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         game.printField();
-        for (Ship ship: Ship.values()) {
-            game.askCoordinates(ship);
+        for (ShipType shipType : ShipType.values()) {
+            game.askCoordinates(shipType);
+            game.printField();
         }
     }
 }
 
 
-enum Ship {
+enum ShipType {
     AIRCRAFT_CARRIER("Aircraft Carrier", 5),
     BATTLESHIP("Battleship", 4),
     SUBMARINE("Submarine", 3),
@@ -25,7 +27,7 @@ enum Ship {
     String type;
     int size;
 
-    Ship(String type, int size) {
+    ShipType(String type, int size) {
         this.type = type;
         this.size = size;
     }
@@ -40,12 +42,12 @@ enum Ship {
 }
 
 class Field {
-    enum Cell {
+    enum Symbol {
         NONE(' '), FOG('~'), SHIP('O'), HIT('X'), MISS('M');
 
         char value;
 
-        Cell(char value) {
+        Symbol(char value) {
             this.value = value;
         }
     }
@@ -54,7 +56,7 @@ class Field {
     private char[][] field;
 
     private void setHeaders() {
-        field[0][0] = Cell.NONE.value;
+        field[0][0] = Symbol.NONE.value;
         for (int j = 1; j < field[0].length; j++) {
             field[0][j] = (char) ('0' + j % SIZE);
         }
@@ -65,7 +67,7 @@ class Field {
 
     private void initializeField() {
         for (int i = 1; i < field.length; i++) {
-            Arrays.fill(field[i], 1, field[i].length, Cell.FOG.value);
+            Arrays.fill(field[i], 1, field[i].length, Symbol.FOG.value);
         }
     }
 
@@ -75,22 +77,124 @@ class Field {
         initializeField();
     }
 
+    private void printHeader() {
+        for (int j = 0; j < field[0].length - 1; j++) {
+            System.out.print(field[0][j] + " ");
+        }
+        System.out.println("10");
+    }
+
     public void print() {
-        for (char[] row : field) {
-            for (char cell : row) {
-                System.out.print(cell + " ");
+        System.out.println();
+        printHeader();
+
+        for (int i = 1; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                System.out.print(field[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    public void setShip(String from, String to) {
+    public void setShip(Cell from, Cell to) {
+        for (int i = from.row; i < to.row + 1; i++) {
+            for (int j = from.column; j < to.column + 1; j++) {
+                field[i][j] = Symbol.SHIP.value;
+            }
+        }
+    }
 
+    private ArrayList<Cell> findNeighbors(Cell from, Cell to) {
+        ArrayList<Cell> neighbors = new ArrayList<>();
+        for (int i = from.row - 1; i < to.row + 2; i++) {
+            for (int j = from.column - 1; j < to.column + 2; j++) {
+                if (i < 1 || j < 1 || i > SIZE || j > SIZE) {
+                    continue;
+                }
+                if (i >= from.row && i <= to.row && j >= from.column && j <= to.column) {
+                    continue;
+                }
+                neighbors.add(new Cell(i, j));
+            }
+        }
+        return neighbors;
+    }
+
+    public boolean isTooClose(Cell from, Cell to) {
+        for (Cell cell : findNeighbors(from, to)) {
+            if(field[cell.row][cell.column] == Symbol.SHIP.value) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+class Cell {
+    public final int row;
+    public final int column;
+
+    public Cell(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+}
+
+class Parser {
+    enum Group {
+        ROW_FROM(1), COLUMN_FROM(2), ROW_TO(3), COLUMN_TO(4);
+        int value;
+
+        Group(int value) {
+            this.value = value;
+        }
+    }
+
+    private static final String COORDINATE_FORMAT = "([A-J])(\\d{1,2})\\s+([A-J])(\\d{1,2})";
+    private static final Pattern PATTERN = Pattern.compile(COORDINATE_FORMAT);
+    private Matcher matcher;
+
+    public Parser(String text) {
+        matcher = PATTERN.matcher(text);
+    }
+
+    public boolean matches() {
+        return matcher.matches();
+    }
+
+    public Cell getFrom() {
+        return createCell(Group.ROW_FROM.value, Group.COLUMN_FROM.value);
+    }
+
+    public Cell getTo() {
+        return createCell(Group.ROW_TO.value, Group.COLUMN_TO.value);
+    }
+
+    private int getX(int xGroup) {
+        return matcher.group(xGroup).charAt(0) - 'A' + 1;
+    }
+
+    private int getY(int yGroup) {
+        return Integer.parseInt(matcher.group(yGroup));
+    }
+
+    private Cell createCell(int xGroup, int yGroup) {
+        return new Cell(getX(xGroup), getY(yGroup));
     }
 }
 
 class Game {
     private Field field;
+    private static final String ENTER_COORDINATES
+            = "\nEnter the coordinates of the %s (%d cells):\n\n";
+    private static final String FORMAT_ERROR
+            = "\nError! Invalid format\n";
+    private static final String LOCATION_ERROR
+            = "\nError! Wrong ship location! Try again:\n";
+    private static final String LENGTH_ERROR
+            = "\nError! Wrong length of the %s! Try again:\n\n";
+    private static final String TOO_CLOSE_ERROR
+            = "\nError! You placed it too close to another one. Try again:\n";
 
     public Game() {
         field = new Field();
@@ -100,44 +204,55 @@ class Game {
         field.print();
     }
 
-    public void askCoordinates(Ship ship) {
+
+    public void askCoordinates(ShipType shipType) {
         Scanner scanner = new Scanner(System.in);
-        Pattern pattern = Pattern.compile("([A-J])(\\d{1,2})\\s+([A-J])(\\d{1,2})");
         boolean isValidAnswer = false;
 
-        System.out.printf("Enter the coordinates of the %s (%d cells):\n\n",
-                ship.type, ship.size);
-
+        System.out.printf(ENTER_COORDINATES, shipType.type, shipType.size);
+        Cell fromCell = null;
+        Cell toCell = null;
         while (!isValidAnswer) {
-            Matcher matcher = pattern.matcher(scanner.nextLine());
+            Parser parser = new Parser(scanner.nextLine());
 
-            if (!matcher.matches()) {
-                System.out.println("Error! Invalid format");
+            if (!parser.matches()) {
+                System.out.println(FORMAT_ERROR);
                 continue;
             }
+            fromCell = parser.getFrom();
+            toCell = parser.getTo();
 
-            int fromRow = matcher.group(1).charAt(0) - 'A' + 1;
-            int fromColumn = Integer.parseInt(matcher.group(2));
-            int toRow = matcher.group(3).charAt(0) - 'A' + 1;
-            int toColumn = Integer.parseInt(matcher.group(4));
-            int deltaX = toColumn - fromColumn + 1;
-            int deltaY = toRow - fromRow + 1;
+            int minRow = Math.min(fromCell.row, toCell.row);
+            int minColumn = Math.min(fromCell.column, toCell.column);
+            int maxRow = Math.max(fromCell.row, toCell.row);
+            int maxColumn = Math.max(fromCell.column, toCell.column);
+
+            fromCell = new Cell(minRow, minColumn);
+            toCell = new Cell(maxRow, maxColumn);
+
+            int deltaX = toCell.column - fromCell.column + 1;
+            int deltaY = toCell.row - fromCell.row + 1;
 
             if (deltaX != 1 && deltaY != 1) {
-                System.out.println("Error! Wrong ship location! Try again:\n");
+                System.out.println(LOCATION_ERROR);
                 continue;
             }
 
-            if (deltaX == 1 && deltaY != ship.size) {
-                System.out.printf("Error! Wrong length of the %s! Try again:\n\n",
-                        ship.type);
+            if (deltaX == 1 && deltaY != shipType.size) {
+                System.out.printf(LENGTH_ERROR, shipType.type);
                 continue;
             }
 
-            if (deltaX != ship.size && deltaY == 1) {
+            if (deltaX != shipType.size && deltaY == 1) {
+                System.out.printf(LENGTH_ERROR, shipType.type);
+                continue;
+            }
+            if (field.isTooClose(fromCell, toCell)) {
+                System.out.println(TOO_CLOSE_ERROR);
                 continue;
             }
             isValidAnswer = true;
         }
+        field.setShip(fromCell, toCell);
     }
 }
