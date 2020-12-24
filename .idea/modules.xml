@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Battleship.iml" filepath="$PROJECT_DIR$/.idea/modules/Battleship.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.iml" filepath="$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Battleship/task/Battleship.Battleship-task.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Are siblings/Battleship.Problems-Are_siblings.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Days of the week/Battleship.Problems-Days_of_the_week.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/The root of a number/Battleship.Problems-The_root_of_a_number.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw a checked exception/Battleship.Problems-Throw_a_checked_exception.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an IOException/Battleship.Problems-Throw_an_IOException.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Problems/Throw an unchecked exception/Battleship.Problems-Throw_an_unchecked_exception.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Battleship.util.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Battleship.util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Battleship.util.main.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Battleship.util.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/util/Battleship.util.test.iml" filepath="$PROJECT_DIR$/.idea/modules/util/Battleship.util.test.iml" />
+    </modules>
+  </component>
+</project>
